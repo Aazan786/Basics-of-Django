@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Welcome {{name}}</h1>
+    {% if perms.signup.delete_blog %}
+        <input type="button" value="Delete"> <br><br>
+        {% else %}
+        <h3>No delete permission</h3>
+    {% endif %}
+
+    <h2>Login Time</h2>
+    <input type="button" value="{{ct}}">
+
+    {% if messages %}
+    {% for message in messages  %}
+        <small {% if message.tags %} class = "{{message.tags}}" {% endif %}> 
+    {{message}}</small>
+    {% endfor %}
+    {% endif %} 
+
+    {% if users != None %}
+    <h3>List Of Users</h3>
+        {% for user in users %}
+        <a href="{% url 'signup:userdetail' user.id %}""> {{user.username}}</a>
+        <br><br>
+        {% endfor %}
+    {% endif %}
+
+
+    <form action="" method="POST" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+            <p>{{error}}</p>
+            {% endfor %}
+        {% endif %}
+
+        {% for fm in form %}
+        {{fm.label_tag}} {{fm}} {{fm.errors|striptags}}<br><br>
+        {% endfor %}
+        <input type="submit" value = "Save">
+    </form>
+    <a href="{% url 'signup:change_password' %}">Change Password</a>
+    <a href="{% url 'signup:logout' %}">Logout</a>
+</body>
+</html>

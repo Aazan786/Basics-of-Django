@@ -1,0 +1,17 @@
+{% extends 'reviews/base.html' %}
+
+{% block title  %}
+ Single Review
+{% endblock  %}
+
+{% block content  %}
+<h1>{{reviews.user_name}}</h1>
+<p>(Rating: {{reviews.rating}})</p>
+<p>{{reviews.review_text}}</p>
+<form action="{% url 'reviews:fav' reviews.id %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name= "review_id" value = "{{reviews.id}}">
+    <button>Favorite</button>
+</form>
+   
+{% endblock  %}

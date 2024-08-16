@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+  </head>
+  <body>
+    <ul>
+      {% for profile in profiles %}
+      <li>
+        <img
+          src="{{ profile.image.url }}"
+          style="display: block; width: 100px; height: 100px"
+        />
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
